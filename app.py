@@ -18,7 +18,7 @@ def load_model_from_url(url):
 # Fungsi utama untuk aplikasi
 def main():
     # Title untuk aplikasi
-    st.title("Analisis Sentimen SpotifyWrapped 2024")
+    st.title("Prediksi dan Analisis Sentimen 2024")
 
     # Bagian untuk upload file
     uploaded_file = st.file_uploader("Upload file CSV Anda", type=["csv"])
@@ -29,8 +29,8 @@ def main():
         st.write(data)
 
         # Load model dan vectorizer dari URL
-        model_url = "https://raw.githubusercontent.com/dhavinaocxa/fp-datmin/main/rf_model.pkl"
-        vectorizer_url = "https://raw.githubusercontent.com/dhavinaocxa/fp-datmin/main/vectorizer.pkl"
+        model_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/svm_sentiment_model.pkl"
+        vectorizer_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/vectorizer.pkl"
 
         model = load_model_from_url(model_url)
         vectorizer = load_model_from_url(vectorizer_url)
@@ -68,10 +68,10 @@ def main():
                     # Evaluasi Akurasi jika ada label 'sentiment'
                     if 'sentiment' in data.columns:
                         # Menghitung akurasi
-                        accuracy = accuracy_score(data['sentiment'], predictions)
+                        accuracy = accuracy_score(data['sentiment2'], predictions)
                         st.success(f"Akurasi Model: {accuracy:.2%}")
                         st.write("Laporan Klasifikasi:")
-                        st.text(classification_report(data['sentiment'], predictions))
+                        st.text(classification_report(data['sentiment2'], predictions))
                     else:
                         st.warning("Kolom 'sentiment' tidak ditemukan. Tidak dapat menghitung akurasi.")
 
