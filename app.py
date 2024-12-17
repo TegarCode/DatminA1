@@ -65,15 +65,15 @@ def main():
                     )
                     st.plotly_chart(fig_bar)
 
-                    # Evaluasi Akurasi jika ada label 'sentiment'
-                    if 'sentiment' in data.columns:
+                    # Evaluasi Akurasi jika ada label 'sentiment2'
+                    if 'sentiment2' in data.columns:
                         # Menghitung akurasi
                         accuracy = accuracy_score(data['sentiment2'], predictions)
                         st.success(f"Akurasi Model: {accuracy:.2%}")
                         st.write("Laporan Klasifikasi:")
                         st.text(classification_report(data['sentiment2'], predictions))
                     else:
-                        st.warning("Kolom 'sentiment' tidak ditemukan. Tidak dapat menghitung akurasi.")
+                        st.warning("Kolom 'sentiment2' tidak ditemukan. Tidak dapat menghitung akurasi.")
 
                     # Tombol untuk mengunduh hasil
                     st.download_button(
