@@ -5,6 +5,8 @@ import requests
 from io import BytesIO
 from sklearn.metrics import accuracy_score
 import plotly.express as px
+import re
+
 
 # Fungsi untuk mengunduh file dan memuat dengan pickle
 def load_model_from_url(url):
@@ -14,6 +16,16 @@ def load_model_from_url(url):
     else:
         st.error(f"Gagal mengunduh file dari URL: {url}")
         return None
+
+
+
+# Fungsi untuk preprocessing teks
+def preprocess_text(text):
+    text = text.lower()  # Ubah ke huruf kecil
+    text = re.sub(r'[^\w\s]', '', text)  # Hapus tanda baca
+    text = re.sub(r'\d+', '', text)  # Hapus angka jika ada
+    text = text.strip()  # Hapus spasi di awal/akhir
+    return text
 
 # Fungsi utama untuk aplikasi
 def main():
@@ -82,6 +94,9 @@ def main():
     tweet_input = st.text_area("Masukkan tweet di sini:")
 
     if tweet_input:
+        # Preprocessing teks input
+        cleaned_tweet = preprocess_text(tweet_input)
+
         # Load model dan vectorizer dari URL
         model_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/svm_sentiment_model.pkl"
         vectorizer_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/vectorizer.pkl"
@@ -92,21 +107,20 @@ def main():
         # Pastikan model dan vectorizer berhasil di-load
         if model and vectorizer:
             # Transformasi data menggunakan vectorizer
-            tweet_vect = vectorizer.transform([tweet_input])
+            tweet_vect = vectorizer.transform([cleaned_tweet])
 
             # Prediksi Sentimen
-            if st.button("Prediksi Sentimen", key="prediksi_tweet"):
+            if st.button("Prediksi Sentimen", key="predict_button_tweet"):
                 # Prediksi dengan model yang sudah dilatih
                 sentiment = model.predict(tweet_vect)
 
-                 # Tampilkan hasil prediksi
-                if sentiment == 'positif':
+                # Tampilkan hasil prediksi
+                if sentiment[0] == 'positif':
                     st.success(f"Sentimen tweet ini adalah: **Positif**")
-                elif sentiment == 'negatif':
+                elif sentiment[0] == 'negatif':
                     st.error(f"Sentimen tweet ini adalah: **Negatif**")
                 else:
                     st.info(f"Sentimen tweet ini adalah: **Netral**")
-
 
 if __name__ == '__main__':
     main()
