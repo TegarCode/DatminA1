@@ -29,7 +29,7 @@ def main():
         st.write(data)
 
         # Load model dan vectorizer dari URL
-        model_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/svm_sentiment_model.pkl"
+        model_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/svm_sentiment2_model.pkl"
         vectorizer_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/vectorizer.pkl"
 
         model = load_model_from_url(model_url)
@@ -48,32 +48,32 @@ def main():
                     predictions = model.predict(X_test)
 
                     # Tambahkan hasil prediksi ke data
-                    data['Predicted Sentiment'] = predictions
+                    data['Predicted sentiment2'] = predictions
 
                     # Tampilkan hasil prediksi
                     st.write("Hasil Prediksi Sentimen:")
-                    st.write(data[['full_text', 'Predicted Sentiment']])
+                    st.write(data[['full_text', 'Predicted sentiment2']])
 
                     # Visualisasi distribusi sentimen
-                    sentiment_counts = data['Predicted Sentiment'].value_counts()
+                    sentiment2_counts = data['Predicted sentiment2'].value_counts()
                     fig_bar = px.bar(
-                        sentiment_counts,
-                        x=sentiment_counts.index,
-                        y=sentiment_counts.values,
+                        sentiment2_counts,
+                        x=sentiment2_counts.index,
+                        y=sentiment2_counts.values,
                         labels={'x': 'Sentimen', 'y': 'Jumlah'},
                         title="Distribusi Sentimen"
                     )
                     st.plotly_chart(fig_bar)
 
-                    # Evaluasi Akurasi jika ada label 'sentiment'
-                    if 'sentiment' in data.columns:
+                    # Evaluasi Akurasi jika ada label 'sentiment2'
+                    if 'sentiment2' in data.columns:
                         # Menghitung akurasi
-                        accuracy = accuracy_score(data['sentiment'], predictions)
+                        accuracy = accuracy_score(data['sentiment2'], predictions)
                         st.success(f"Akurasi Model: {accuracy:.2%}")
                         st.write("Laporan Klasifikasi:")
-                        st.text(classification_report(data['sentiment'], predictions))
+                        st.text(classification_report(data['sentiment2'], predictions))
                     else:
-                        st.warning("Kolom 'sentiment' tidak ditemukan. Tidak dapat menghitung akurasi.")
+                        st.warning("Kolom 'sentiment2' tidak ditemukan. Tidak dapat menghitung akurasi.")
 
                     # Tombol untuk mengunduh hasil
                     st.download_button(
