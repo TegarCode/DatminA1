@@ -103,10 +103,8 @@ def main():
                 if sentiment == 'positif':
                     st.success(f"Sentimen tweet ini adalah: **Positif**")
                 elif sentiment == 'negatif':
-                    st.error(f"Sentimen tweet ini adalah: **Negatif**")
-                else:
-                    st.info(f"Sentimen tweet ini adalah: **Netral**")
-
+                    st.info(f"Sentimen tweet ini adalah: **Negatif**")
+              
 
 if __name__ == '__main__':
     main()
