@@ -3,7 +3,7 @@ import pandas as pd
 import pickle
 import requests
 from io import BytesIO
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score
 import plotly.express as px
 
 # Fungsi untuk mengunduh file dan memuat dengan pickle
@@ -43,7 +43,7 @@ def main():
                 X_test = vectorizer.transform(data['full_text'])
 
                 # Prediksi Sentimen
-                if st.button("Prediksi Sentimen"):
+                if st.button("Prediksi Sentimen", key="prediksi_file"):
                     # Prediksi dengan model yang sudah dilatih
                     predictions = model.predict(X_test)
 
@@ -65,16 +65,6 @@ def main():
                     )
                     st.plotly_chart(fig_bar)
 
-                    # Evaluasi Akurasi jika ada label 'sentiment2'
-                    if 'sentiment2' in data.columns:
-                        # Menghitung akurasi
-                        accuracy = accuracy_score(data['sentiment2'], predictions)
-                        st.success(f"Akurasi Model: {accuracy:.2%}")
-                        st.write("Laporan Klasifikasi:")
-                        st.text(classification_report(data['sentiment2'], predictions))
-                    else:
-                        st.warning("Kolom 'sentiment2' tidak ditemukan. Tidak dapat menghitung akurasi.")
-
                     # Tombol untuk mengunduh hasil
                     st.download_button(
                         label="Download Hasil Prediksi",
@@ -84,7 +74,6 @@ def main():
                     )
             else:
                 st.error("Kolom 'full_text' tidak ditemukan dalam file yang diunggah.")
-
 
     # Title untuk aplikasi
     st.title("Prediksi dan Analisis Sentimen Tweet")
@@ -106,7 +95,7 @@ def main():
             tweet_vect = vectorizer.transform([tweet_input])
 
             # Prediksi Sentimen
-            if st.button("Prediksi Sentimen"):
+            if st.button("Prediksi Sentimen", key="prediksi_tweet"):
                 # Prediksi dengan model yang sudah dilatih
                 sentiment = model.predict(tweet_vect)
 
