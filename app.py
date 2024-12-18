@@ -48,18 +48,18 @@ def main():
                     predictions = model.predict(X_test)
 
                     # Tambahkan hasil prediksi ke data
-                    data['Predicted sentiment2'] = predictions
+                    data['Predicted Sentiment'] = predictions
 
                     # Tampilkan hasil prediksi
                     st.write("Hasil Prediksi Sentimen:")
-                    st.write(data[['full_text', 'Predicted sentiment2']])
+                    st.write(data[['full_text', 'Predicted Sentiment']])
 
                     # Visualisasi distribusi sentimen
-                    sentiment2_counts = data['Predicted sentiment2'].value_counts()
+                    sentiment_counts = data['Predicted Sentiment'].value_counts()
                     fig_bar = px.bar(
-                        sentiment2_counts,
-                        x=sentiment2_counts.index,
-                        y=sentiment2_counts.values,
+                        sentiment_counts,
+                        x=sentiment_counts.index,
+                        y=sentiment_counts.values,
                         labels={'x': 'Sentimen', 'y': 'Jumlah'},
                         title="Distribusi Sentimen"
                     )
