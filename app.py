@@ -87,40 +87,6 @@ def main():
             else:
                 st.error("Kolom 'full_text' tidak ditemukan dalam file yang diunggah.")
 
-    # Title untuk aplikasi
-    st.title("Prediksi dan Analisis Sentimen Tweet")
-
-      # Bagian untuk input tweet manual
-    st.title("Prediksi Sentimen Tweet Manual")
-    tweet_input = st.text_area("Masukkan tweet di sini:")
-
-    if tweet_input:
-        # Load model dan vectorizer
-        model_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/svm_sentiment_model.pkl"
-        vectorizer_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/vectorizer.pkl"
-
-        model = load_model_from_url(model_url)
-        vectorizer = load_model_from_url(vectorizer_url)
-
-        # Validasi model dan vectorizer
-        if model and vectorizer:
-            # Preprocessing input teks manual
-            tweet_input_processed = preprocess_text(tweet_input)
-            tweet_vect = vectorizer.transform([tweet_input_processed])
-
-            # Prediksi Sentimen
-            if st.button("Prediksi Sentimen", key="predict_manual"):
-                sentiment = model.predict(tweet_vect)[0]
-
-                # Pastikan hanya positif/negatif
-                if sentiment == 'netral':
-                    sentiment = 'negatif'  # Default jika netral muncul
-
-                # Tampilkan hasil prediksi
-                if sentiment == 'positif':
-                    st.success(f"Sentimen tweet ini adalah: **Positif**")
-                else:
-                    st.error(f"Sentimen tweet ini adalah: **Negatif**")
-
+    
 if __name__ == '__main__':
     main()
