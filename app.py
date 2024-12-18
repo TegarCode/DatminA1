@@ -99,12 +99,14 @@ def main():
                 # Prediksi dengan model yang sudah dilatih
                 sentiment = model.predict(tweet_vect)
 
-                # Tampilkan hasil prediksi
+                 # Tampilkan hasil prediksi
                 if sentiment == 'positif':
                     st.success(f"Sentimen tweet ini adalah: **Positif**")
                 elif sentiment == 'negatif':
-                    st.info(f"Sentimen tweet ini adalah: **Negatif**")
-              
+                    st.error(f"Sentimen tweet ini adalah: **Negatif**")
+                else:
+                    st.info(f"Sentimen tweet ini adalah: **Netral**")
+
 
 if __name__ == '__main__':
     main()
