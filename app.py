@@ -29,8 +29,8 @@ def main():
         st.write(data)
 
         # Load model dan vectorizer dari URL
-        model_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/svm_sentiment_model1.pkl"
-        vectorizer_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/vectorizer1.pkl"
+        model_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/svm_sentiment_model.pkl"
+        vectorizer_url = "https://raw.githubusercontent.com/TegarCode/DatminA1/main/vectorizer.pkl"
 
         model = load_model_from_url(model_url)
         vectorizer = load_model_from_url(vectorizer_url)
