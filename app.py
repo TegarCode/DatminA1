@@ -37,10 +37,10 @@ def main():
 
         # Pastikan model dan vectorizer berhasil di-load
         if model and vectorizer:
-            # Validasi kolom 'stemming_data'
-            if 'stemming_data' in data.columns:
+            # Validasi kolom 'full_text'
+            if 'full_text' in data.columns:
                 # Transformasi data menggunakan vectorizer
-                X_test = vectorizer.transform(data['stemming_data'])
+                X_test = vectorizer.transform(data['full_text'])
 
                 # Prediksi Sentimen
                 if st.button("Prediksi Sentimen"):
@@ -52,7 +52,7 @@ def main():
 
                     # Tampilkan hasil prediksi
                     st.write("Hasil Prediksi Sentimen:")
-                    st.write(data[['stemming_data', 'Predicted Sentiment']])
+                    st.write(data[['full_text', 'Predicted Sentiment']])
 
                     # Visualisasi distribusi sentimen
                     sentiment_counts = data['Predicted Sentiment'].value_counts()
@@ -65,15 +65,15 @@ def main():
                     )
                     st.plotly_chart(fig_bar)
 
-                    # Evaluasi Akurasi jika ada label 'sentiment2'
-                    if 'sentiment2' in data.columns:
+                    # Evaluasi Akurasi jika ada label 'sentiment'
+                    if 'sentiment' in data.columns:
                         # Menghitung akurasi
-                        accuracy = accuracy_score(data['sentiment2'], predictions)
+                        accuracy = accuracy_score(data['sentiment'], predictions)
                         st.success(f"Akurasi Model: {accuracy:.2%}")
                         st.write("Laporan Klasifikasi:")
-                        st.text(classification_report(data['sentiment2'], predictions))
+                        st.text(classification_report(data['sentiment'], predictions))
                     else:
-                        st.warning("Kolom 'sentiment2' tidak ditemukan. Tidak dapat menghitung akurasi.")
+                        st.warning("Kolom 'sentiment' tidak ditemukan. Tidak dapat menghitung akurasi.")
 
                     # Tombol untuk mengunduh hasil
                     st.download_button(
@@ -83,7 +83,7 @@ def main():
                         mime="text/csv"
                     )
             else:
-                st.error("Kolom 'stemming_data' tidak ditemukan dalam file yang diunggah.")
+                st.error("Kolom 'full_text' tidak ditemukan dalam file yang diunggah.")
 
 if __name__ == '__main__':
     main()
